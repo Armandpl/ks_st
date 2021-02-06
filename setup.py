@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ks_st", # Replace with your own username
-    version="0.0.1", author="Armandpl",
+    version="0.0.4", author="Armandpl",
     author_email="adpl33@gmail.com",
     description="Style transfer toolbox",
     long_description=long_description,

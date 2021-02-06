@@ -107,9 +107,9 @@ class Normalization(nn.Module):
         # normalize img
         return (img - self.mean) / self.std
 
-def image_loader(image_name, size):
+def image_loader(image_name, img_size):
     loader = transforms.Compose([
-        transforms.Resize(imsize),  # scale imported image
+        transforms.Resize(img_size),  # scale imported image
         transforms.ToTensor()])  # transform it into a torch tensor
 
     image = Image.open(image_name)
@@ -120,7 +120,7 @@ def image_loader(image_name, size):
 
 
 def imshow(tensor, title=None):
-	plt.figure()
+    plt.figure()
     image = tensor.cpu().clone()  # we clone the tensor to not do changes on it
     image = image.squeeze(0)      # remove the fake batch dimension
     image = unloader(image)
@@ -221,14 +221,14 @@ def run_style_transfer(cnn, normalization_mean, normalization_std,
 
     return input_img
 
-def transfer_style(style="style.jpg", content="content.jpg", size=512, iterations=5):
-	style_img = image_loader(style)
-	content_img = image_loader(content)
+def transfer_style(style="style.jpg", content="content.jpg", img_size=512, iterations=5):
+    style_img = image_loader(style, img_size)
+    content_img = image_loader(content, img_size)
 
-	input_img = content_img.clone()	
+    input_img = content_img.clone() 
 
-	output = run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std, content_img, style_img, input_img)
-	
-	imshow(output, title='Output Image')
+    output = run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std, content_img, style_img, input_img)
+    
+    imshow(output, title='Output Image')
 
-	save_image(output, "output.jpg")
+    save_image(output, "output.jpg")
